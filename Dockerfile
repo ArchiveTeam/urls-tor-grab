@@ -17,6 +17,4 @@ RUN sed -i "s|TRACKER_ID = 'urls'|TRACKER_ID = 'urls-onion'|" pipeline.py \
   && sed -i -E "s|'--resolvconf-file',.+||" pipeline.py \
   && sed -i -E "s|'--dns-servers',.+||" pipeline.py \
   && sed -i "s|'--reject-reserved-subnets',||" pipeline.py \
-  && sed -i -E "s|TRACKER_HOST, TRACKER_ID, MULTI_ITEM_SIZE|TRACKER_HOST, 'arkivertest5', MULTI_ITEM_SIZE|" pipeline.py \
   && sed -i "s|item\['dict_project'\] = TRACKER_ID|item\['dict_project'\] = 'urls'|" pipeline.py \
-  && sed -i -E "s|MoveFiles(),|#MoveFiles(),|" pipeline.py
