@@ -1,8 +1,9 @@
 FROM atdr.meo.ws/archiveteam/urls-grab
 RUN DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -qqy -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-unsafe-io update \
-  && DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -qqy -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-unsafe-io install tor
+  && DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -qqy -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-unsafe-io install tor \
+  && rm -rf /var/lib/apt/lists/*
 COPY . /grab
-RUN grep "VERSION = '20240327.08'" pipeline.py
+RUN grep "VERSION = '20240327.09'" pipeline.py
 RUN sed -i "s|TRACKER_ID = 'urls'|TRACKER_ID = 'urls-tor'|" pipeline.py \
   && sed -i -E "s|VERSION = '[0-9]+\.[0-9]+'|VERSION = '20240327.03'|" pipeline.py \
   && sed -i -E "s|WGET_AT_COMMAND = \[([^]]+)\]|WGET_AT_COMMAND = \['torify', \1\]|" pipeline.py \
